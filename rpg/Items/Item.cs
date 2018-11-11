@@ -17,7 +17,7 @@ namespace rpg.Items
         public string Description { get; set; }
         public Sprite Image { get; set; }
 
-        public ItemType itemType;
+        //public ItemType itemType;
 
     }
 }

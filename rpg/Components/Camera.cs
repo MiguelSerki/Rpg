@@ -18,8 +18,8 @@ namespace rpg.Components
                 Game1.ScreenHeight / 2,
                 0);
             var position = Matrix.CreateTranslation(
-                -target._position.X - (target.Rectangle.Width / 2),
-                -target._position.Y - (target.Rectangle.Height / 2),
+                -target.Position.X - (target._texture.Width / 2),
+                -target.Position.Y - (target._texture.Height / 2),
                 0);
 
             Transform = position * offset;

@@ -7,35 +7,35 @@ using System.Threading.Tasks;
 
 namespace rpg
 {
-    internal class InputKeyboard : Input
-    {
-        private KeyboardState keyboardState;
-        private KeyboardState lasKeyboardState;
-        private Keys lastKey;
+    //internal class InputKeyboard : Input
+    //{
+    //    private KeyboardState keyboardState;
+    //    private KeyboardState lasKeyboardState;
+    //    private Keys lastKey;
 
-        protected override void CheckInput(double gameTime)
-        {
-            keyboardState = Keyboard.GetState();
-            if (keyboardState.IsKeyUp(lastKey) && lastKey != Keys.None)
-            {
-                SendNewInput(Inputs.None);
-            }
+    //    protected override void CheckInput(double gameTime)
+    //    {
+    //        keyboardState = Keyboard.GetState();
+    //        if (keyboardState.IsKeyUp(lastKey) && lastKey != Keys.None)
+    //        {
+    //            SendNewInput(Inputs.None);
+    //        }
 
-            CheckKeyState(Keys.Left, Inputs.Left);
-            CheckKeyState(Keys.Up, Inputs.Up);
-            CheckKeyState(Keys.Right, Inputs.Right);
-            CheckKeyState(Keys.Down, Inputs.Down);
+    //        CheckKeyState(Keys.Left, Inputs.Left);
+    //        CheckKeyState(Keys.Up, Inputs.Up);
+    //        CheckKeyState(Keys.Right, Inputs.Right);
+    //        CheckKeyState(Keys.Down, Inputs.Down);
 
-            lasKeyboardState = keyboardState;
-        }
+    //        lasKeyboardState = keyboardState;
+    //    }
 
-        private void CheckKeyState(Keys key, Inputs sendInputs)
-        {
-            if (keyboardState.IsKeyDown(key))
-            {
-                SendNewInput(sendInputs);
-                lastKey = key;
-            }
-        }
-    }
+    //    private void CheckKeyState(Keys key, Inputs sendInputs)
+    //    {
+    //        if (keyboardState.IsKeyDown(key))
+    //        {
+    //            SendNewInput(sendInputs);
+    //            lastKey = key;
+    //        }
+    //    }
+    //}
 }

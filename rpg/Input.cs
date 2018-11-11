@@ -1,4 +1,5 @@
-﻿using rpg.MyEventArgs;
+﻿using Microsoft.Xna.Framework.Input;
+using rpg.MyEventArgs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,47 +8,16 @@ using System.Threading.Tasks;
 
 namespace rpg
 {
-    public abstract class Input
+
+    public class Input
     {
-        private event EventHandler<NewInputEventsArgs> newInput;
-        private double counter;
-        private double cooldown;
+        public Keys Down { get; set; }
 
-        public event EventHandler<NewInputEventsArgs> NewInput
-        {
-            add { newInput += value; }
-            remove { newInput -= value; }
-        }
+        public Keys Left { get; set; }
 
-        protected Input()
-        {
-            counter = 0;
-            cooldown = 0;
-        }
+        public Keys Right { get; set; }
 
-        public void Update(double gameTime)
-        {
-            if (cooldown > 0)
-            {
-                counter += gameTime;
-                if (counter > gameTime)
-                {
-                    counter = 0;
-                    cooldown = 0;
-                }
-                else
-                {
-                    return;
-                }
-            }
-            CheckInput(gameTime);
-        }
-
-        protected abstract void CheckInput(double gameTime);
-
-        protected void SendNewInput(Inputs inputs)
-        {
-            newInput?.Invoke(this, new NewInputEventsArgs(inputs));
-        }
+        public Keys Up { get; set; }
     }
+
 }

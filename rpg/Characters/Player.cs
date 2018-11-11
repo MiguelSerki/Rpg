@@ -13,13 +13,16 @@ namespace rpg.Characters
     public class Player
     {
         public Sprite _sprite { get; set; }
-        private InputKeyboard _inputKeyboard { get; set; }
+        public Sprite cameraFollow;
+ //       private InputKeyboard _inputKeyboard { get; set; }
 
         public float _speed { get; set; }
         public Player()
         {
-            _inputKeyboard = new InputKeyboard();
-            _inputKeyboard.NewInput += InputKeyboard_NewInput;
+            //_inputKeyboard = new InputKeyboard();
+            //_inputKeyboard.NewInput += InputKeyboard_NewInput;
+           // _sprite = new Sprite();
+            cameraFollow = new Sprite(new Texture2D(Game1.Instance.GraphicsDevice, 100,100));
             _speed = 5;
         }
 
@@ -28,9 +31,10 @@ namespace rpg.Characters
             this._sprite = sprite;
         }
 
-        public void Update(double gameTime)
+        public void Update(GameTime gameTime)
         {
-            _inputKeyboard.Update(gameTime);
+            //          _inputKeyboard.Update(gameTime);
+            _sprite.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -38,60 +42,60 @@ namespace rpg.Characters
             _sprite.Draw(spriteBatch);
         }
 
-        private void InputKeyboard_NewInput(object sender, MyEventArgs.NewInputEventsArgs e)
-        {
-            switch (e.input)
-            {
-                case Inputs.Up:
-                    if (_sprite._position.Y <= 0)
-                    {
-                        this._sprite.Move(0, 0, _speed);
-                    }
-                    else
-                    {
-                        this._sprite.Move(0, -1.5f, _speed);
-                    }
+        //private void InputKeyboard_NewInput(object sender, MyEventArgs.NewInputEventsArgs e)
+        //{
+        //    switch (e.input)
+        //    {
+        //        case Inputs.Up:
+        //            if (_sprite._position.Y <= 0)
+        //            {
+        //                this._sprite.Move(0, 0, _speed);
+        //            }
+        //            else
+        //            {
+        //                this._sprite.Move(0, -1.5f, _speed);
+        //            }
 
-                    break;
-                case Inputs.Down:
+        //            break;
+        //        case Inputs.Down:
 
-                    if ((float)_sprite._height + _sprite._position.Y >= Game1.LimitHeight)
-                    {
-                        this._sprite.Move(0, 0, _speed);
-                    }
-                    else
-                    {
-                        this._sprite.Move(0, 1.5f, _speed);
-                    }
+        //            if ((float)_sprite._height + _sprite._position.Y >= Game1.LimitHeight)
+        //            {
+        //                this._sprite.Move(0, 0, _speed);
+        //            }
+        //            else
+        //            {
+        //                this._sprite.Move(0, 1.5f, _speed);
+        //            }
 
-                    break;
-                case Inputs.Left:
+        //            break;
+        //        case Inputs.Left:
 
-                    if (_sprite._position.X > 0)
-                    {
-                        this._sprite.Move(-1.5f, 0, _speed);
-                    }
-                    else
-                    {
-                        this._sprite.Move(0, 0, _speed);
-                    }
+        //            if (_sprite._position.X > 0)
+        //            {
+        //                this._sprite.Move(-1.5f, 0, _speed);
+        //            }
+        //            else
+        //            {
+        //                this._sprite.Move(0, 0, _speed);
+        //            }
 
-                    break;
-                case Inputs.Right:
-                    if ((float)_sprite._width + _sprite._position.X >= Game1.LimitWidth)
-                    {
-                        this._sprite.Move(0, 0, _speed);
-                    }
-                    else
-                    {
-                        this._sprite.Move(1.5f, 0, _speed);
-                    }
-                    break;
-                case Inputs.None:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
+        //            break;
+        //        case Inputs.Right:
+        //            if ((float)_sprite._width + _sprite._position.X >= Game1.LimitWidth)
+        //            {
+        //                this._sprite.Move(0, 0, _speed);
+        //            }
+        //            else
+        //            {
+        //                this._sprite.Move(1.5f, 0, _speed);
+        //            }
+        //            break;
+        //        case Inputs.None:
+        //            break;
+        //        default:
+        //            throw new ArgumentOutOfRangeException();
+        //    }
+        //}
     }
 }

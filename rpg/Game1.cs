@@ -6,6 +6,7 @@ using MonoGame.Extended.Tiled.Graphics;
 using rpg.Characters;
 using rpg.Components;
 using System;
+using System.Collections.Generic;
 
 namespace rpg
 {
@@ -19,6 +20,7 @@ namespace rpg
         private SpriteBatch spriteBatch;
         private Player _player;
         private Sprite _map;
+        private Sprite test;
         private Camera _camera;
 
         public static int ScreenHeight;
@@ -26,14 +28,12 @@ namespace rpg
 
         public static int LimitHeight;
         public static int LimitWidth;
-        
+
         public Game1()
-        { 
+        {
             Instance = this;
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            _player = new Player();
-            _camera = new Camera();
         }
 
         protected override void Initialize()
@@ -41,17 +41,39 @@ namespace rpg
             // TODO: Add your initialization logic here
             ScreenHeight = graphics.PreferredBackBufferHeight;
             ScreenWidth = graphics.PreferredBackBufferWidth;
+            _player = new Player();
+            _camera = new Camera();
             base.Initialize();
+
 
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            _player.LoadContent(new Sprite(Content.Load<Texture2D>("player idle"), 15, 21, new Vector2(40, 40)));
-            _map = new Sprite(Content.Load<Texture2D>("MapTest"), 3200, 3200, new Vector2(0, 0));
-            LimitHeight = _map._height;
-            LimitWidth = _map._width;
+
+            var animations = new Dictionary<string, Animation>()
+            {
+                {"Idle", new Animation(Content.Load<Texture2D>("Idle"), 4) },
+                {"WalkRight", new Animation(Content.Load<Texture2D>("WalkingRight"), 3) },
+                {"WalkLeft", new Animation(Content.Load<Texture2D>("WalkingLeft"), 3) },
+                {"Attack", new Animation(Content.Load<Texture2D>("Attack"), 8) }
+            };
+
+            test = new Sprite(animations)
+            {
+                Position = new Vector2(100, 100),
+                Input = new Input()
+                {
+                    Up = Keys.W,
+                    Down = Keys.S,
+                    Right = Keys.D,
+                    Left = Keys.A
+                },
+
+            };
+           // _player.LoadContent(sprite);
+            _map = new Sprite(Content.Load<Texture2D>("MapTest"));
         }
         protected override void UnloadContent()
         {
@@ -62,8 +84,9 @@ namespace rpg
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            _player.Update(gameTime.ElapsedGameTime.Milliseconds);
-            _camera.Follow(_player._sprite);
+            //    _player.Update(gameTime);
+            //   _camera.Follow(_player.cameraFollow);
+            test.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -73,8 +96,9 @@ namespace rpg
 
             spriteBatch.Begin(transformMatrix: _camera.Transform);
 
-            _map.Draw(spriteBatch);
-            _player.Draw(spriteBatch);
+            //            _map.Draw(spriteBatch);
+            //_player.Draw(spriteBatch);
+            test.Draw(spriteBatch);
 
             spriteBatch.End();
 

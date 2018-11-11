@@ -41,9 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="BaseObject.cs" />
     <Compile Include="Characters\Player.cs" />
-    <Compile Include="Component.cs" />
     <Compile Include="Components\Animation.cs" />
     <Compile Include="Components\AnimationManager.cs" />
     <Compile Include="Components\Camera.cs" />
@@ -52,7 +50,6 @@
     <Compile Include="Items\Inventory.cs" />
     <Compile Include="Items\Item.cs" />
     <Compile Include="Components\Sprite.cs" />
-    <Compile Include="Enums.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="InputKeyboard.cs" />

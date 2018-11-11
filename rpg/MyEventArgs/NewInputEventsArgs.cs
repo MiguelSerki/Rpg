@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace rpg.MyEventArgs
 {
-    public class NewInputEventsArgs: EventArgs
-    {
-        public Inputs input { get; set; }
+    //public class NewInputEventsArgs: EventArgs
+    //{
+    //    public Inputs input { get; set; }
 
-        public NewInputEventsArgs(Inputs input)
-        {
-            this.input = input;
-        }
-    }
+    //    public NewInputEventsArgs(Inputs input)
+    //    {
+    //        this.input = input;
+    //    }
+    //}
 }

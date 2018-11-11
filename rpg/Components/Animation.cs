@@ -28,10 +28,6 @@ namespace rpg.Components
 
             FrameSpeed = 0.2f;
         }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-        
-        }
 
     }
 }

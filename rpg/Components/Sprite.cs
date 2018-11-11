@@ -19,7 +19,7 @@ namespace rpg.Components
 
         protected Vector2 _position;
 
-        protected Texture2D _texture;
+        public Texture2D _texture;
 
         #endregion
 
@@ -74,10 +74,12 @@ namespace rpg.Components
                 _animationManager.Play(_animations["WalkRight"]);
             else if (Velocity.X < 0)
                 _animationManager.Play(_animations["WalkLeft"]);
-            else if (Velocity.Y > 0)
-                _animationManager.Play(_animations["WalkDown"]);
-            else if (Velocity.Y < 0)
-                _animationManager.Play(_animations["WalkUp"]);
+            //else if (Velocity.Y > 0)
+            //    _animationManager.Play(_animations["WalkDown"]);
+            //else if (Velocity.Y < 0)
+            //    _animationManager.Play(_animations["WalkUp"]);
+            else if (Velocity.X == 0 && Velocity.Y == 0)
+                _animationManager.Play(_animations["Idle"]);
             else _animationManager.Stop();
         }
 
@@ -92,7 +94,7 @@ namespace rpg.Components
             _texture = texture;
         }
 
-        public virtual void Update(GameTime gameTime, List<Sprite> sprites)
+        public virtual void Update(GameTime gameTime)
         {
             Move();
 
@@ -103,12 +105,11 @@ namespace rpg.Components
             Position += Velocity;
             Velocity = Vector2.Zero;
         }
-
         #endregion
     }
 
 
-    public class Sprite2 : Component
+    public class Sprite2
     {
         public Texture2D _texture { get; set; }
         public int _height { get; set; }
@@ -120,19 +121,15 @@ namespace rpg.Components
             get { return new Rectangle((int)_position.X, (int)_position.Y, _texture.Width, _texture.Height); }
         }
 
-        public Sprite(Texture2D texture, int width, int height, Vector2 position)
+        public Sprite2(Texture2D texture, int width, int height, Vector2 position)
         {
             this._texture = texture;
             this._width = width;
             this._height = height;
             this._position = position;
         }
-        public override ComponentType ComponentType
-        {
-            get { return ComponentType.sprite; }
-        }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, _position, Color.White);
         }
@@ -143,7 +140,7 @@ namespace rpg.Components
             _position = new Vector2(_position.X + (x * speed), _position.Y + (y * speed));
         }
 
-        public override void Update(double gameTime)
+        public void Update(double gameTime)
         {
 
         }
