@@ -15,7 +15,7 @@ namespace rpg.Characters
     {
         public Sprite _sprite { get; set; }
 
-        public float Speed = 1f;
+        public float Speed = 150f;
         public Input Input;
         public Vector2 Velocity;
 
@@ -29,19 +29,15 @@ namespace rpg.Characters
 
         Animation currentAnimation;
 
-
-        //       private InputKeyboard _inputKeyboard { get; set; }
-
         public Player(GraphicsDevice graphicsDevice)
         {
-            //_inputKeyboard = new InputKeyboard();
-            //_inputKeyboard.NewInput += InputKeyboard_NewInput;
             Input = new Input()
             {
                 Up = Keys.W,
                 Down = Keys.S,
                 Right = Keys.D,
-                Left = Keys.A
+                Left = Keys.A,
+                None = Keys.None
             };
             _sprite = new Sprite();
         }
@@ -71,17 +67,18 @@ namespace rpg.Characters
             walkRight.AddFrame(new Rectangle(48, 245, 48, 49), TimeSpan.FromSeconds(.125));
 
 
-
-
-
-
-
-
             standLeft = new Animation();
+
+            standLeft.AddFrame(new Rectangle(0, 0, 48, 49), TimeSpan.FromSeconds(.25));
             standLeft.AddFrame(new Rectangle(48, 0, 48, 49), TimeSpan.FromSeconds(.25));
+            standLeft.AddFrame(new Rectangle(96, 0, 48, 49), TimeSpan.FromSeconds(.25));
+            standLeft.AddFrame(new Rectangle(144, 0, 48, 49), TimeSpan.FromSeconds(.25));
 
             standRight = new Animation();
-            standRight.AddFrame(new Rectangle(96, 0, 48, 49), TimeSpan.FromSeconds(.25));
+            standRight.AddFrame(new Rectangle(384, 0, 48, 49), TimeSpan.FromSeconds(.25));
+            standRight.AddFrame(new Rectangle(336, 0, 48, 49), TimeSpan.FromSeconds(.25));
+            standRight.AddFrame(new Rectangle(288, 0, 48, 49), TimeSpan.FromSeconds(.25));
+            standRight.AddFrame(new Rectangle(240, 0, 48, 49), TimeSpan.FromSeconds(.25));
 
 
         }
@@ -89,7 +86,6 @@ namespace rpg.Characters
         public void Update(GameTime gameTime)
         {
 
-            _sprite.Update(gameTime);
             Move();
             this.X += Velocity.X * (float)gameTime.ElapsedGameTime.TotalSeconds;
             this.Y += Velocity.Y * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -97,9 +93,9 @@ namespace rpg.Characters
 
             if (Velocity != Vector2.Zero)
             {
-                bool movingHorizontally = Math.Abs(Velocity.X) > Math.Abs(Velocity.Y);
-                if (movingHorizontally)
-                {
+                //bool movingHorizontally = Math.Abs(Velocity.X) > Math.Abs(Velocity.Y);
+                //if (movingHorizontally)
+                //{
                     if (Velocity.X > 0)
                     {
                         currentAnimation = walkRight;
@@ -108,19 +104,23 @@ namespace rpg.Characters
                     {
                         currentAnimation = walkLeft;
                     }
+
+                if (Velocity.Y > 0)
+                {
+                    if (currentAnimation == walkRight || currentAnimation == standRight)
+                        currentAnimation = walkRight;
+                    else
+                        currentAnimation = walkLeft;
                 }
-                //else
-                //{
-                //    if (velocity.Y > 0)
-                //    {
-                //        currentAnimation = walkDown;
-                //    }
-                //    else
-                //    {
-                //        currentAnimation = walkUp;
-                //    }
-                //}
+                else
+                {
+                    if (currentAnimation == walkRight || currentAnimation == standRight)
+                        currentAnimation = walkRight;
+                    else
+                        currentAnimation = walkLeft;
+                }
             }
+        
             else
             {
                 // If the character was walking, we can set the standing animation
@@ -144,7 +144,7 @@ namespace rpg.Characters
 
             currentAnimation.Update(gameTime);
 
-
+            _sprite.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -158,68 +158,21 @@ namespace rpg.Characters
         {
             if (Keyboard.GetState().IsKeyDown(Input.Up))
                 Velocity.Y = -Speed;
-            else if (Keyboard.GetState().IsKeyDown(Input.Down))
+            if (Keyboard.GetState().IsKeyDown(Input.Down))
                 Velocity.Y = Speed;
-            else if (Keyboard.GetState().IsKeyDown(Input.Left))
+            if (Keyboard.GetState().IsKeyDown(Input.Left))
                 Velocity.X = -Speed;
-            else if (Keyboard.GetState().IsKeyDown(Input.Right))
+            if (Keyboard.GetState().IsKeyDown(Input.Right))
                 Velocity.X = Speed;
+            if (Keyboard.GetState().IsKeyUp(Input.Up) && Keyboard.GetState().IsKeyUp(Input.Down))
+            {
+                Velocity.Y = 0;
+            }
+            if (Keyboard.GetState().IsKeyUp(Input.Left) && Keyboard.GetState().IsKeyUp(Input.Right))
+            {
+                Velocity.X = 0;
+            }
+
         }
-
-        //private void InputKeyboard_NewInput(object sender, MyEventArgs.NewInputEventsArgs e)
-        //{
-        //    switch (e.input)
-        //    {
-        //        case Inputs.Up:
-        //            if (_sprite._position.Y <= 0)
-        //            {
-        //                this._sprite.Move(0, 0, _speed);
-        //            }
-        //            else
-        //            {
-        //                this._sprite.Move(0, -1.5f, _speed);
-        //            }
-
-        //            break;
-        //        case Inputs.Down:
-
-        //            if ((float)_sprite._height + _sprite._position.Y >= Game1.LimitHeight)
-        //            {
-        //                this._sprite.Move(0, 0, _speed);
-        //            }
-        //            else
-        //            {
-        //                this._sprite.Move(0, 1.5f, _speed);
-        //            }
-
-        //            break;
-        //        case Inputs.Left:
-
-        //            if (_sprite._position.X > 0)
-        //            {
-        //                this._sprite.Move(-1.5f, 0, _speed);
-        //            }
-        //            else
-        //            {
-        //                this._sprite.Move(0, 0, _speed);
-        //            }
-
-        //            break;
-        //        case Inputs.Right:
-        //            if ((float)_sprite._width + _sprite._position.X >= Game1.LimitWidth)
-        //            {
-        //                this._sprite.Move(0, 0, _speed);
-        //            }
-        //            else
-        //            {
-        //                this._sprite.Move(1.5f, 0, _speed);
-        //            }
-        //            break;
-        //        case Inputs.None:
-        //            break;
-        //        default:
-        //            throw new ArgumentOutOfRangeException();
-        //    }
-        //}
     }
 }

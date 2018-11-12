@@ -63,6 +63,7 @@ namespace rpg
                 Exit();
                 _player.Update(gameTime);
                _camera.Follow(_player);
+
             base.Update(gameTime);
         }
 
