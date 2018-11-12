@@ -20,7 +20,6 @@ namespace rpg
         private SpriteBatch spriteBatch;
         private Player _player;
         private Sprite _map;
-        private Sprite test;
         private Camera _camera;
 
         public static int ScreenHeight;
@@ -41,39 +40,17 @@ namespace rpg
             // TODO: Add your initialization logic here
             ScreenHeight = graphics.PreferredBackBufferHeight;
             ScreenWidth = graphics.PreferredBackBufferWidth;
-            _player = new Player();
+            _player = new Player(GraphicsDevice);
             _camera = new Camera();
             base.Initialize();
-
-
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            var animations = new Dictionary<string, Animation>()
-            {
-                {"Idle", new Animation(Content.Load<Texture2D>("Idle"), 4) },
-                {"WalkRight", new Animation(Content.Load<Texture2D>("WalkingRight"), 3) },
-                {"WalkLeft", new Animation(Content.Load<Texture2D>("WalkingLeft"), 3) },
-                {"Attack", new Animation(Content.Load<Texture2D>("Attack"), 8) }
-            };
-
-            test = new Sprite(animations)
-            {
-                Position = new Vector2(100, 100),
-                Input = new Input()
-                {
-                    Up = Keys.W,
-                    Down = Keys.S,
-                    Right = Keys.D,
-                    Left = Keys.A
-                },
-
-            };
-           // _player.LoadContent(sprite);
-            _map = new Sprite(Content.Load<Texture2D>("MapTest"));
+            Sprite player = new Sprite(Content.Load<Texture2D>("LightBandit_Spritesheet"), null);
+            _player.LoadContent(player);
+            _map = new Sprite(Content.Load<Texture2D>("MapTest"), new Vector2(0,0));
         }
         protected override void UnloadContent()
         {
@@ -84,9 +61,8 @@ namespace rpg
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            //    _player.Update(gameTime);
-            //   _camera.Follow(_player.cameraFollow);
-            test.Update(gameTime);
+                _player.Update(gameTime);
+               _camera.Follow(_player);
             base.Update(gameTime);
         }
 
@@ -96,9 +72,8 @@ namespace rpg
 
             spriteBatch.Begin(transformMatrix: _camera.Transform);
 
-            //            _map.Draw(spriteBatch);
-            //_player.Draw(spriteBatch);
-            test.Draw(spriteBatch);
+            _map.Draw(spriteBatch);
+            _player.Draw(spriteBatch);
 
             spriteBatch.End();
 

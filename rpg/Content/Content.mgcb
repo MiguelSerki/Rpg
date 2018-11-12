@@ -1,7 +1,7 @@
 
 #----------------------------- Global Properties ----------------------------#
 
-/outputDir:C:\Users\miguel.serki\source\repos\rpg\rpg\bin\Windows\x86\Debug\Content
+/outputDir:..\bin\Windows\x86\Debug\Content
 /intermediateDir:obj/$(Platform)
 /platform:Windows
 /config:
