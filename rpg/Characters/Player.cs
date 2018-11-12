@@ -47,6 +47,8 @@ namespace rpg.Characters
             this._sprite = sprite;
 
             walkLeft = new Animation();
+
+            walkLeft.AddFrame(new Rectangle(0, 49, 48, 49), TimeSpan.FromSeconds(.125));
             walkLeft.AddFrame(new Rectangle(48, 49, 48, 49), TimeSpan.FromSeconds(.125));
             walkLeft.AddFrame(new Rectangle(96, 49, 48, 49), TimeSpan.FromSeconds(.125));
             walkLeft.AddFrame(new Rectangle(144, 49, 48, 49), TimeSpan.FromSeconds(.125));
@@ -54,10 +56,8 @@ namespace rpg.Characters
             walkLeft.AddFrame(new Rectangle(240, 49, 48, 49), TimeSpan.FromSeconds(.125));
             walkLeft.AddFrame(new Rectangle(288, 49, 48, 49), TimeSpan.FromSeconds(.125));
             walkLeft.AddFrame(new Rectangle(336, 49, 48, 49), TimeSpan.FromSeconds(.125));
-            walkLeft.AddFrame(new Rectangle(384, 49, 48, 49), TimeSpan.FromSeconds(.125));
 
             walkRight = new Animation();
-            walkRight.AddFrame(new Rectangle(384, 245, 48, 49), TimeSpan.FromSeconds(.125));
             walkRight.AddFrame(new Rectangle(336, 245, 48, 49), TimeSpan.FromSeconds(.125));
             walkRight.AddFrame(new Rectangle(288, 245, 48, 49), TimeSpan.FromSeconds(.125));
             walkRight.AddFrame(new Rectangle(240, 245, 48, 49), TimeSpan.FromSeconds(.125));
@@ -65,6 +65,7 @@ namespace rpg.Characters
             walkRight.AddFrame(new Rectangle(144, 245, 48, 49), TimeSpan.FromSeconds(.125));
             walkRight.AddFrame(new Rectangle(96, 245, 48, 49), TimeSpan.FromSeconds(.125));
             walkRight.AddFrame(new Rectangle(48, 245, 48, 49), TimeSpan.FromSeconds(.125));
+            walkRight.AddFrame(new Rectangle(0, 245, 48, 49), TimeSpan.FromSeconds(.125));
 
 
             standLeft = new Animation();
@@ -75,10 +76,10 @@ namespace rpg.Characters
             standLeft.AddFrame(new Rectangle(144, 0, 48, 49), TimeSpan.FromSeconds(.25));
 
             standRight = new Animation();
-            standRight.AddFrame(new Rectangle(384, 0, 48, 49), TimeSpan.FromSeconds(.25));
             standRight.AddFrame(new Rectangle(336, 0, 48, 49), TimeSpan.FromSeconds(.25));
             standRight.AddFrame(new Rectangle(288, 0, 48, 49), TimeSpan.FromSeconds(.25));
             standRight.AddFrame(new Rectangle(240, 0, 48, 49), TimeSpan.FromSeconds(.25));
+            standRight.AddFrame(new Rectangle(192, 0, 48, 49), TimeSpan.FromSeconds(.25));
 
 
         }
