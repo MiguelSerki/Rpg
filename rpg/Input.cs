@@ -20,6 +20,8 @@ namespace rpg
         public Keys Up { get; set; }
 
         public Keys None { get; set; }
+
+        public Keys Attack { get; set; }
     }
 
 }

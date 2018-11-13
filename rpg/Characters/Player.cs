@@ -15,7 +15,7 @@ namespace rpg.Characters
     {
         public Sprite _sprite { get; set; }
 
-        public float Speed = 150f;
+        public double Speed = 150;
         public Input Input;
         public Vector2 Velocity;
 
@@ -27,6 +27,8 @@ namespace rpg.Characters
         Animation standLeft;
         Animation standRight;
 
+        Animation attack;
+
         Animation currentAnimation;
 
         public Player(GraphicsDevice graphicsDevice)
@@ -37,7 +39,8 @@ namespace rpg.Characters
                 Down = Keys.S,
                 Right = Keys.D,
                 Left = Keys.A,
-                None = Keys.None
+                None = Keys.None,
+                Attack = Keys.K
             };
             _sprite = new Sprite();
         }
@@ -81,6 +84,16 @@ namespace rpg.Characters
             standRight.AddFrame(new Rectangle(240, 0, 48, 49), TimeSpan.FromSeconds(.25));
             standRight.AddFrame(new Rectangle(192, 0, 48, 49), TimeSpan.FromSeconds(.25));
 
+            attack = new Animation();
+
+            attack.AddFrame(new Rectangle(0, 98, 48, 49), TimeSpan.FromSeconds(.050));
+            attack.AddFrame(new Rectangle(48, 98, 48, 49), TimeSpan.FromSeconds(.050));
+            attack.AddFrame(new Rectangle(96, 98, 48, 49), TimeSpan.FromSeconds(.050));
+            attack.AddFrame(new Rectangle(144, 98, 48, 49), TimeSpan.FromSeconds(.050));
+            attack.AddFrame(new Rectangle(192, 98, 48, 49), TimeSpan.FromSeconds(.050));
+            attack.AddFrame(new Rectangle(240, 98, 48, 49), TimeSpan.FromSeconds(.050));
+            attack.AddFrame(new Rectangle(288, 98, 48, 49), TimeSpan.FromSeconds(.050));
+            attack.AddFrame(new Rectangle(336, 98, 48, 49), TimeSpan.FromSeconds(.050));
 
         }
 
@@ -94,9 +107,6 @@ namespace rpg.Characters
 
             if (Velocity != Vector2.Zero)
             {
-                //bool movingHorizontally = Math.Abs(Velocity.X) > Math.Abs(Velocity.Y);
-                //if (movingHorizontally)
-                //{
                     if (Velocity.X > 0)
                     {
                         currentAnimation = walkRight;
@@ -139,9 +149,15 @@ namespace rpg.Characters
                     currentAnimation = standRight;
                 }
 
+                if (Keyboard.GetState().IsKeyDown(Input.Attack))
+                {
+                    currentAnimation = attack;
+                }
+
                 // if none of the above code hit then the character
                 // is already standing, so no need to change the animation.
             }
+
 
             currentAnimation.Update(gameTime);
 
@@ -158,13 +174,13 @@ namespace rpg.Characters
         public virtual void Move()
         {
             if (Keyboard.GetState().IsKeyDown(Input.Up))
-                Velocity.Y = -Speed;
+                Velocity.Y = (float)-Speed;
             if (Keyboard.GetState().IsKeyDown(Input.Down))
-                Velocity.Y = Speed;
+                Velocity.Y = (float)Speed;
             if (Keyboard.GetState().IsKeyDown(Input.Left))
-                Velocity.X = -Speed;
+                Velocity.X = (float)-Speed;
             if (Keyboard.GetState().IsKeyDown(Input.Right))
-                Velocity.X = Speed;
+                Velocity.X = (float)Speed;
             if (Keyboard.GetState().IsKeyUp(Input.Up) && Keyboard.GetState().IsKeyUp(Input.Down))
             {
                 Velocity.Y = 0;
