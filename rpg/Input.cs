@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework.Input;
-using rpg.MyEventArgs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
